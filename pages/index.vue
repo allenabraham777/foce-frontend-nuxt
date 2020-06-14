@@ -1,16 +1,27 @@
 <template>
   <div class="container">
-    <h1>Prediction History</h1>
-    <div v-for="(hist, key) in history" :key="key" class="card history-card center-align">
-      <h1>
-        {{ hist.food }}
+    <div v-if="history">
+      <h1 class="history-page-head">
+        Prediction History
       </h1>
-      <h2>
-        {{ hist.calorie }}
-      </h2>
-      <h3>
-        {{ hist.volume }}
-      </h3>
+      <div v-for="(hist, key) in history" :key="key" class="card history-card center-align">
+        <h1>
+          {{ hist.food }}
+        </h1>
+        <h2>
+          {{ hist.calorie }}
+        </h2>
+        <h3>
+          {{ hist.volume }}
+        </h3>
+      </div>
+    </div>
+    <div v-else>
+      <h1>
+        Hey
+        <br>
+        There,
+      </h1>
     </div>
   </div>
 </template>
@@ -19,35 +30,26 @@
 export default {
   layout: 'header',
   middleware: 'auth',
-  asyncData () {
-    return {
-      history: [
-        {
-          food: 'food1',
-          calorie: 'calorie',
-          volume: 'volume'
-        },
-        {
-          food: 'food2',
-          calorie: 'calorie',
-          volume: 'volume'
-        },
-        {
-          food: 'food3',
-          calorie: 'calorie',
-          volume: 'volume'
-        },
-        {
-          food: 'food4',
-          calorie: 'calorie',
-          volume: 'volume'
-        },
-        {
-          food: 'food5',
-          calorie: 'calorie',
-          volume: 'volume'
+  async asyncData ({ $axios, $auth }) {
+    // const token = await $auth.getToken('local')
+    // const user = await $auth.fetchUser()
+    // $axios.setHeader('auth-token', token)
+    return await $axios.get('/prediction/results')
+      .then((res) => {
+        return {
+          history: res.data.history.length > 0 ? res.data.history : null
         }
-      ]
+      })
+      .catch((err) => {
+        return {
+          history: {},
+          err
+        }
+      })
+  },
+  data () {
+    return {
+      auth: null
     }
   }
 }
@@ -56,7 +58,7 @@ export default {
 <style lang="scss">
   .container {
 
-    h1 {
+    .history-page-head {
       font-size: 40px;
       text-align: center;
     }

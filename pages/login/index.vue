@@ -4,7 +4,7 @@
       <h1 class="desc">
         Food Observation and Calorie Estimation
       </h1>
-      <h1 class="app-title">
+      <h1 class="app-title left-align">
         FOCE <span class="dot #4caf50 green-text">.</span>
       </h1>
       <div class="input-field">
@@ -24,7 +24,6 @@
         </nuxt-link>
       </div>
     </form>
-    {{ resp }}
   </div>
 </template>
 
@@ -40,13 +39,25 @@ export default {
       resp: {}
     }
   },
+  created () {
+    if (this.$auth.loggedIn) {
+      this.$router.push('/') 
+    }
+  },
   methods: {
     async userLogin () {
       try {
         const response = await this.$auth.loginWith('local', { data: this.login })
         console.log(response)
         this.resp = response
-        this.$auth.setUser(response.data)
+        this.$router.push('/') 
+        
+        // this.$axios.setHeader('auth-token', response.data.access_token)
+        // this.$axios.get('/user').then((resp) => { 
+        //   // this.$store.commit('User',resp.data)
+        //   this.$auth.setUser(resp.data)
+        // })
+        // this.$auth.setUser(response.data)
       } catch (err) {
         console.log(err)
       }

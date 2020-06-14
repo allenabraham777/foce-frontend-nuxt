@@ -12,6 +12,7 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
@@ -29,6 +30,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/auth.js', mode: 'client' },
     { src: '@/plugins/materialize.js', ssr: false }
   ],
   /*
@@ -51,19 +53,27 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'https://foce-backend.herokuapp.com/api'
+    baseURL: 'http://localhost:3000/api'
   },
   auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: '/login',
+      home: '/'
+    },
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/user/login', method: 'post'},
-          logout: { url: '/user/logout', method: 'post'},
+          login: { url: '/user/login', method: 'post', propertyName: 'access_token'},
+          logout: { url: '/user/logout', method: 'get'},
+          user: { url: '/user', method: 'get', propertyName: 'user'}
         },
-        tokenType: 'auth-key',
-        // tokenRequired: true,
-        // globalToken: true,
-        autoFetchUser: false
+        tokenName: 'auth-token',
+        tokenType: ''
+        // tokenRequired: false,
+        // autoFetchUser: false,
+        // globalToken: false,
       }
     }
   },
@@ -72,6 +82,9 @@ export default {
     scss: [
       'assets/scss/_variable.scss'
     ]
+  },
+  server: {
+    port: 8000
   },
   /*
   ** Build configuration

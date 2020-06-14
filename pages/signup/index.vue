@@ -29,10 +29,13 @@
         </nuxt-link>
       </div>
     </form>
+    {{ resp }}
   </div>
 </template>
 
 <script>
+// const axios = require('axios')
+
 export default {
   data () {
     return {
@@ -41,12 +44,31 @@ export default {
         email: '',
         password: '',
         password2: ''
-      }
+      },
+      resp: { }
     }
   },
-  method: {
-    signUp () {
-
+  created () {
+    if (this.$auth.loggedIn) {
+      this.$router.push('/')
+    }
+  },
+  methods: {
+    async signUp () {
+      try {
+        const { name, email, password, password2 } = this.register
+        const data = {
+          name,
+          email,
+          password,
+          password2
+        }
+        await this.$axios.post('/user/register', data)
+        this.$router.push('/login')
+      } catch (err) {
+        this.resp = err
+      }
+      // const response = await axios.get('/user/register', { data: this.register })
     }
   }
 }

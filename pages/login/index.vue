@@ -62,7 +62,6 @@ export default {
         .then((response) => {
           console.log(response)
           this.resp = response
-          this.loginState = 0
           this.$router.push('/') 
         })
         .catch((err) => {

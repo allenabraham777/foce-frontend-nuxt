@@ -19,8 +19,10 @@
         </div>
       </form>
     </div>
-    <div v-else-if="uploaderState === 1">
-      Waiting
+    <div v-else-if="uploaderState === 1" class="loading">
+      <div>
+        <a class="btn-floating btn-large blue pulse"><i class="material-icons">wb_cloudy</i></a>
+      </div>
     </div>
     <div v-else-if="uploaderState === 2">
       <img v-if="imageData" :src="`${imageData}`" class="uploaded-image">
@@ -37,7 +39,7 @@
         Return Home
       </button>
     </div>
-    <div v-else>
+    <div v-else class="loader">
       <h1 class="calorie #b71c1c red-text darken-4">
         {{ response }}
       </h1>
@@ -105,9 +107,8 @@ export default {
   padding: 20px;
 
   .uploaded-image {
-    width: 100%;
+    max-width: 250px;
   }
-
   .food {
     margin: 6px 0;
     font-size: 24px;

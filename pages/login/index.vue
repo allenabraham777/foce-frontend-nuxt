@@ -1,12 +1,15 @@
 <template>
   <div class="container">
-    <form class="login-card" @submit.stop.prevent="userLogin">
+    <form v-if="loginState === 0" class="login-card" @submit.stop.prevent="userLogin">
       <h1 class="desc">
         Food Observation and Calorie Estimation
       </h1>
       <h1 class="app-title left-align">
         FOCE <span class="dot #4caf50 green-text">.</span>
       </h1>
+      <span class="red-text">
+        {{ message }}
+      </span>
       <div class="input-field">
         <input id="email" v-model="login.email" name="email" type="email" class="validate">
         <label for="email">EMAIL</label>
@@ -24,6 +27,11 @@
         </nuxt-link>
       </div>
     </form>
+    <div v-else-if="loginState === 1" class="loading">
+      <div>
+        <a class="btn-floating btn-large blue pulse"><i class="material-icons">hourglass_full</i></a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,6 +40,8 @@
 export default {
   data () {
     return {
+      loginState: 0,
+      message: null,
       login: {
         email: '',
         password: ''
@@ -47,10 +57,21 @@ export default {
   methods: {
     async userLogin () {
       try {
-        const response = await this.$auth.loginWith('local', { data: this.login })
-        console.log(response)
-        this.resp = response
-        this.$router.push('/') 
+        this.loginState = 1
+        this.$auth.loginWith('local', { data: this.login })
+        .then((response) => {
+          console.log(response)
+          this.resp = response
+          this.loginState = 0
+          this.$router.push('/') 
+        })
+        .catch((err) => {
+          /* disable-eslint */
+          console.log(err);
+          this.message = "Check username or password"
+          this.loginState = 0
+
+        })
         
         // this.$axios.setHeader('auth-token', response.data.access_token)
         // this.$axios.get('/user').then((resp) => { 

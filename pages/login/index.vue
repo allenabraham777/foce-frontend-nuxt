@@ -67,7 +67,7 @@ export default {
         .catch((err) => {
           /* disable-eslint */
           console.log(err);
-          this.message = "Check username or password"
+          this.message = err.response.data.message
           this.loginState = 0
 
         })

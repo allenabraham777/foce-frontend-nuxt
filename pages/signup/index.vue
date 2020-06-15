@@ -4,6 +4,7 @@
       <h1 class="app-title">
         Signup <span class="dot #4caf50 green-text">.</span>
       </h1>
+      <span class="red-text">{{ message }}</span>
       <div class="input-field">
         <input id="name" v-model="register.name" name="name" type="text" class="validate">
         <label for="name">Name</label>
@@ -29,13 +30,13 @@
         </nuxt-link>
       </div>
     </form>
-    {{ resp }}
+    <!-- {{ resp }} -->
   </div>
 </template>
 
 <script>
 // const axios = require('axios')
-
+/* eslint-disable */
 export default {
   data () {
     return {
@@ -45,7 +46,8 @@ export default {
         password: '',
         password2: ''
       },
-      resp: { }
+      // resp: { },
+      message: null
     }
   },
   created () {
@@ -55,19 +57,21 @@ export default {
   },
   methods: {
     async signUp () {
-      try {
-        const { name, email, password, password2 } = this.register
-        const data = {
-          name,
-          email,
-          password,
-          password2
-        }
-        await this.$axios.post('/user/register', data)
-        this.$router.push('/login')
-      } catch (err) {
-        this.resp = err
+      const { name, email, password, password2 } = this.register
+      const data = {
+        name,
+        email,
+        password,
+        password2
       }
+      await this.$axios.post('/user/register', data)
+      .then(() => {
+        this.$router.push('/login')
+      })
+      .catch((err) => {
+        // this.resp = err
+        this.message = err.response.data.message
+      })
       // const response = await axios.get('/user/register', { data: this.register })
     }
   }

@@ -12,7 +12,7 @@
           {{ hist.calorie }}
         </h2>
         <h3>
-          {{ hist.volume }}
+          {{ hist.foodmass }}
         </h3>
       </div>
     </div>

@@ -33,7 +33,7 @@
         {{ response.calorie }}
       </h3>
       <h3 class="volume #1a237e indigo-text darken-4">
-        {{ response.volume }}
+        {{ response.foodmass }}
       </h3>
       <button class="btn #4caf50 green" @click="goback">
         Return Home

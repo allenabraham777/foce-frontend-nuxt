@@ -1,19 +1,21 @@
 <template>
   <div class="container">
-    <div v-if="history">
-      <h1 class="history-page-head">
+    <div v-if="history" class="row">
+      <h1 class="history-page-head col l12 m12 s12">
         Prediction History
       </h1>
-      <div v-for="(hist, key) in history" :key="key" class="card history-card center-align">
-        <h1>
-          {{ hist.food }}
-        </h1>
-        <h2>
-          {{ hist.calorie }}
-        </h2>
-        <h3>
-          {{ hist.foodmass }}
-        </h3>
+      <div v-for="(hist, key) in history" :key="key" class="history-card-wrapper col l3 m4 s12">
+        <div class="card history-card center-align">
+          <h1>
+            {{ hist.food }}
+          </h1>
+          <h2>
+            {{ hist.calorie }}
+          </h2>
+          <h3>
+            {{ hist.foodmass }}
+          </h3>
+        </div>
       </div>
     </div>
     <div v-else>
@@ -56,23 +58,21 @@ export default {
 </script>
 
 <style lang="scss">
-  .container {
-
-    .history-page-head {
-      font-size: 40px;
-      text-align: center;
-    }
-
+.container {
+  .history-page-head {
+    font-size: 40px;
+    text-align: center;
+  }
+  .history-card-wrapper {
     .history-card {
       padding: 20px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
+      height: 200px;
+      border-radius: 5px;
 
       h1 {
         margin: 10px;
         text-transform: uppercase;
-        font-size: 28px;
+        font-size: 24px;
         font-weight: bold;
       }
 
@@ -89,4 +89,5 @@ export default {
       }
     }
   }
+}
 </style>

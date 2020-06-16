@@ -53,8 +53,9 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: 'http://52.149.215.106/api'
     // baseURL: 'http://localhost:3000/api'
-    baseURL: 'https://foce-backend.herokuapp.com/api'
+    // baseURL: 'https://foce-backend.herokuapp.com/api'
   },
   auth: {
     redirect: {

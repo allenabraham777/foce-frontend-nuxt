@@ -53,7 +53,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://52.149.151.210/api'
+    baseURL: 'http://foce-backend.eastus.cloudapp.azure.com/api'
     // baseURL: 'http://localhost:3000/api'
     // baseURL: 'https://foce-backend.herokuapp.com/api'
   },

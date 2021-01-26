@@ -1,7 +1,3 @@
-# frontend
-
-> My stellar Nuxt.js project
-
 ## Build Setup
 
 ```bash
@@ -18,5 +14,12 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+## Backend
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Built using ExpressJS, source code: https://github.com/allenabraham777/foce-backend-node
+
+### Paper
+https://drive.google.com/file/d/17Jl_b_tCy93zPFhmUTAlak_rgf5b3HWL/view?usp=sharing
+
+### Poster
+https://drive.google.com/file/d/1LrV2uIRKoN8HMEw_TIDqvPNqVZwnfPJ4/view?usp=sharing 
